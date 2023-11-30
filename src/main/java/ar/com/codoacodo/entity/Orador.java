@@ -1,6 +1,7 @@
 package ar.com.codoacodo.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Orador {
 	
@@ -9,26 +10,31 @@ public class Orador {
 	private String apellido;
 	private String mail;
 	private String tema;
-	private LocalDate fechaAlta;
+	private Date fechaAlta;
 
 	//alt+shift+s Genera constructores automaticamente
-	public Orador(String nombre, String apellido, String mail, String tema, LocalDate fechaAlta) {
+	public Orador(String nombre, String apellido, String mail, String tema) {
 		super();
-		init(nombre, apellido, mail, tema, fechaAlta);
+		init(nombre, apellido, mail, tema);
+	}
+	public Orador(String nombre, String apellido, String mail, String tema, Date fechaAlta) {
+		super();
+		init(nombre, apellido, mail, tema);
 	}
 
-	public Orador(Long id, String nombre, String apellido, String mail, String tema, LocalDate fechaAlta) {
+	public Orador(Long id, String nombre, String apellido, String mail, String tema, Date fechaAlta) {
 		super();
 		this.id = id;
-		init(nombre, apellido, mail, tema, fechaAlta);
+		this.fechaAlta = fechaAlta;
+		init(nombre, apellido, mail, tema);
 	}
 	//alt+shift+m Genera la sobrecarga de constructores
-	public void init(String nombre, String apellido, String mail, String tema, LocalDate fechaAlta) {
+	public void init(String nombre, String apellido, String mail, String tema) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.mail = mail;
 		this.tema = tema;
-		this.fechaAlta = fechaAlta;
+		
 	}
 
 	//alt+shift+s Genera sobreescritura ToString()
@@ -42,10 +48,10 @@ public class Orador {
 		return this.id;
 	}
 
-	/*
+	
 	public void setId(Long id) {
 		this.id = id;
-	}*/
+	}
 
 	public String getNombre() {
 		return this.nombre;
@@ -82,11 +88,11 @@ public class Orador {
 		this.tema = tema;
 	}
 
-	public LocalDate getFechaAlta() {
+	public Date getFechaAlta() {
 		return this.fechaAlta;
 	}
 
-	public void setFechaAlta(LocalDate fechaAlta) {
+	public void setFechaAlta(Date fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
 	
