@@ -34,7 +34,7 @@ public class NuevoTurnoController extends HttpServlet {
 		TurnoRequest turnoRequest = mapper.readValue(json, TurnoRequest.class);
 
 		Turno nuevo = new Turno(turnoRequest.getNombre(), turnoRequest.getApellido(), turnoRequest.getMail(),
-				turnoRequest.getFecha_turno(), turnoRequest.getHora_turno(), turnoRequest.getTipo_corte());
+				turnoRequest.getFecha_turno(), turnoRequest.getId_hora(), turnoRequest.getTipo_corte());
 
 		
 		repository.save(nuevo);
@@ -90,11 +90,11 @@ public class NuevoTurnoController extends HttpServlet {
 		Turno turno = this.repository.getById(Long.parseLong(id));
 
 		// ahora actualizo los datos
-		turno.setApellido(turnoRequest.getApellido());
 		turno.setNombre(turnoRequest.getNombre());
+		turno.setApellido(turnoRequest.getApellido());
 		turno.setMail(turnoRequest.getMail());
 		turno.setFecha_turno(turnoRequest.getFecha_turno());
-		turno.setHora_turno(turnoRequest.getHora_turno());
+		turno.setId_hora(turnoRequest.getId_hora());
 		turno.setTipo_corte(turnoRequest.getTipo_corte());
 
 		// ahora si, actualizo en la db!!

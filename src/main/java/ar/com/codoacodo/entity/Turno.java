@@ -11,53 +11,184 @@ public class Turno {
 	private String apellido;
 	private String mail;
 	private LocalDate fecha_turno;
-	private String hora_turno;
+	private Integer id_hora;
+	private String nombre_hora;
 	private String tipo_corte;
+	
 	private Date fecha_alta;
 
-	//alt+shift+s Genera constructores automaticamente
-	public Turno(Long id, String nombre, String apellido, String mail, LocalDate fecha_turno, String hora_turno,
+	
+	
+public Turno(Long id, String nombre, String apellido, String mail, LocalDate fecha_turno, String nombre_hora,
 			String tipo_corte, Date fecha_alta) {
 		super();
-		init(nombre, apellido, mail, fecha_turno, hora_turno, tipo_corte);
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.mail = mail;
+		this.fecha_turno = fecha_turno;
+		this.nombre_hora = nombre_hora;
+		this.tipo_corte = tipo_corte;
+		this.fecha_alta = fecha_alta;
+	}
+
+public Turno(Long id, String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
+		String tipo_corte, Date fecha_alta) {
+	super();
+	this.id = id;
+	this.nombre = nombre;
+	this.apellido = apellido;
+	this.mail = mail;
+	this.fecha_turno = fecha_turno;
+	this.id_hora = id_hora;
+	this.tipo_corte = tipo_corte;
+	this.fecha_alta = fecha_alta;
+}
+
+public Turno(String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora, String tipo_corte) {
+		super();
+		init(nombre, apellido, mail, fecha_turno, id_hora, tipo_corte);
+	}
+
+public void init(String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora, String tipo_corte) {
+	this.nombre = nombre;
+	this.apellido = apellido;
+	this.mail = mail;
+	this.fecha_turno = fecha_turno;
+	this.id_hora = id_hora;
+	
+	this.tipo_corte = tipo_corte;
+}
+
+public Turno(String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
+			String nombre_hora, String tipo_corte, Date fecha_alta) {
+		super();
+		init(nombre, apellido, mail, fecha_turno, id_hora, tipo_corte);
+		this.fecha_alta = fecha_alta;
+		this.nombre_hora = nombre_hora;
+	}
+
+public Turno(Long id, String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
+			String nombre_hora, String tipo_corte, Date fecha_alta) {
+		super();
+		this.id = id;
+		init(nombre, apellido, mail, fecha_turno, id_hora, tipo_corte);
+		this.fecha_alta = fecha_alta;
+		this.nombre_hora = nombre_hora;
+	}
+
+/*	public Turno(Long id, String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
+			String nombre_hora, String tipo_corte, Date fecha_alta) {
+		super();
+		init(id, nombre, apellido, mail, fecha_turno, id_hora, nombre_hora, tipo_corte, fecha_alta);
+	}
+
+	public void init(Long id, String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
+			String nombre_hora, String tipo_corte, Date fecha_alta) {
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.mail = mail;
+		this.fecha_turno = fecha_turno;
+		this.id_hora = id_hora;
+		this.nombre_hora = nombre_hora;
+		this.tipo_corte = tipo_corte;
+		this.fecha_alta = fecha_alta;
+	}
+
+	public Turno(String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
+			String nombre_hora, String tipo_corte) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.mail = mail;
+		this.fecha_turno = fecha_turno;
+		this.id_hora = id_hora;
+		this.nombre_hora = nombre_hora;
+		this.tipo_corte = tipo_corte;
+	}
+
+	public Turno(Long id, String nombre, String apellido, String mail, LocalDate fecha_turno, String nombre_hora,
+			String tipo_corte, Date fecha_alta) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.mail = mail;
+		this.fecha_turno = fecha_turno;
+		this.nombre_hora = nombre_hora;
+		this.tipo_corte = tipo_corte;
+		this.fecha_alta = fecha_alta;
+	}
+
+	public Turno(String nombre, String apellido, String mail, LocalDate fecha_turno, String nombre_hora,
+			String tipo_corte) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.mail = mail;
+		this.fecha_turno = fecha_turno;
+		this.nombre_hora = nombre_hora;
+		this.tipo_corte = tipo_corte;
+	}
+*/
+	//alt+shift+s Genera constructores automaticamente
+	/*public Turno(Long id, String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
+			String tipo_corte, Date fecha_alta) {
+		super();
+		init(nombre, apellido, mail, fecha_turno, id_hora, tipo_corte);
 		this.id = id;
 		this.fecha_alta = fecha_alta;
 	}
-	public Turno(String nombre, String apellido, String mail, LocalDate fecha_turno, String hora_turno, String tipo_corte,
+	public Turno(String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora, String tipo_corte,
 			Date fecha_alta) {
 		super();
-		init(nombre, apellido, mail, fecha_turno, hora_turno, tipo_corte);
+		init(nombre, apellido, mail, fecha_turno, id_hora, tipo_corte);
 		this.fecha_alta = fecha_alta;
 	}
-	public Turno(String nombre, String apellido, String mail, LocalDate fecha_turno, String hora_turno, String tipo_corte
+	public Turno(String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora, String tipo_corte
 			) {
 		super();
-		init(nombre, apellido, mail, fecha_turno, hora_turno, tipo_corte);
+		init(nombre, apellido, mail, fecha_turno, id_hora, tipo_corte);
 		this.fecha_turno = fecha_turno;
 	}
 	//alt+shift+m Genera la sobrecarga de constructores
-	public void init(String nombre, String apellido, String mail, LocalDate fecha_turno, String hora_turno,
+	public void init(String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
 			String tipo_corte) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.mail = mail;
 		this.fecha_turno = fecha_turno;
-		this.hora_turno = hora_turno;
+		this.id_hora = id_hora;
 		this.tipo_corte = tipo_corte;
 	}
-
+*/
+	
 	@Override
 	public String toString() {
 		return "Turno [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", mail=" + mail + ", fecha_turno="
-				+ fecha_turno + ", hora_turno=" + hora_turno + ", tipo_corte=" + tipo_corte + "]";
+				+ fecha_turno + ", id_hora=" + id_hora + ", nombre_hora=" + nombre_hora + ", tipo_corte=" + tipo_corte
+				+ ", fecha_alta=" + fecha_alta + "]";
 	}
 	
 	//GETTERS
 	public Long getId() {
 		return id;
 	}
+	
+
+	
+
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getNombre_hora() {
+		return nombre_hora;
+	}
+
+	public void setNombre_hora(String nombre_hora) {
+		this.nombre_hora = nombre_hora;
 	}
 	public String getNombre() {
 		return nombre;
@@ -83,11 +214,11 @@ public class Turno {
 	public void setFecha_turno(LocalDate fecha_turno) {
 		this.fecha_turno = fecha_turno;
 	}
-	public String getHora_turno() {
-		return hora_turno;
+	public Integer getId_hora() {
+		return id_hora;
 	}
-	public void setHora_turno(String hora_turno) {
-		this.hora_turno = hora_turno;
+	public void setId_hora(Integer id_hora) {
+		this.id_hora = id_hora;
 	}
 	public String getTipo_corte() {
 		return tipo_corte;

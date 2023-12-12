@@ -8,19 +8,31 @@ public class TurnoRequest {
 	private String apellido;
 	private String mail;
 	private LocalDate fecha_turno;
-	private String hora_turno;
+	private Integer id_hora;
+	private String nombre_hora;
 	private String tipo_corte;
 	
 	public TurnoRequest() {}
 
-	public TurnoRequest(String nombre, String apellido, String mail, LocalDate fecha_turno, String hora_turno,
+	public TurnoRequest(String nombre, String apellido, String mail, LocalDate fecha_turno, String nombre_hora,
 			String tipo_corte) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.mail = mail;
 		this.fecha_turno = fecha_turno;
-		this.hora_turno = hora_turno;
+		this.nombre_hora = nombre_hora;
+		this.tipo_corte = tipo_corte;
+	}
+
+	public TurnoRequest(String nombre, String apellido, String mail, LocalDate fecha_turno, Integer id_hora,
+			String tipo_corte) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.mail = mail;
+		this.fecha_turno = fecha_turno;
+		this.id_hora = id_hora;
 		this.tipo_corte = tipo_corte;
 	}
 
@@ -56,12 +68,20 @@ public class TurnoRequest {
 		this.fecha_turno = fecha_turno;
 	}
 
-	public String getHora_turno() {
-		return hora_turno;
+	public String getNombre_hora() {
+		return nombre_hora;
 	}
 
-	public void setHora_turno(String hora_turno) {
-		this.hora_turno = hora_turno;
+	public void setNombre_hora(String nombre_hora) {
+		this.nombre_hora = nombre_hora;
+	}
+
+	public Integer getId_hora() {
+		return id_hora;
+	}
+
+	public void setId_hora(Integer id_hora) {
+		this.id_hora = id_hora;
 	}
 
 	public String getTipo_corte() {

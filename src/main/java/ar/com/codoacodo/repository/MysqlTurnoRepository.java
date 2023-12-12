@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.codoacodo.entity.Hora_Turno;
 import ar.com.codoacodo.entity.Turno;
 import ar.com.codoacodo.utils.DateUtils;
 
@@ -17,7 +18,7 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 	@Override
 	public void save(Turno turno) {
 
-		String sql = "INSERT INTO turnos (nombre,apellido,mail,fecha_turno,hora_turno,tipo_corte) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO turnos (nombre,apellido,mail,fecha_turno,id_hora,tipo_corte) VALUES(?,?,?,?,?,?)";
 
 		try (Connection con = AdministradorDeConexiones.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -25,7 +26,7 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 			statement.setString(2, turno.getApellido());
 			statement.setString(3, turno.getMail());
 			statement.setDate(4, new java.sql.Date(DateUtils.asDate(turno.getFecha_turno()).getTime()));
-			statement.setString(5, turno.getHora_turno());
+			statement.setInt(5, turno.getId_hora());
 			statement.setString(6, turno.getTipo_corte());
 
 			statement.executeUpdate();// INSERT-UPDATE-DELETE
@@ -58,11 +59,11 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 				String apellido = res.getString(3);
 				String email = res.getString(4);
 				Date fecha_turno = res.getDate(5);
-				String hora_turno = res.getString(6);
-				String tipo_corte = res.getString(7);
+				Integer id_hora = res.getInt(6);
+								String tipo_corte = res.getString(8);
 				Date fecha_alta = res.getDate(8);
 				
-				turno = new Turno(dbId, nombre, apellido, email, DateUtils.asLocalDate(fecha_turno), hora_turno, tipo_corte, fecha_alta);
+				turno = new Turno(dbId, nombre, apellido, email, DateUtils.asLocalDate(fecha_turno), id_hora, tipo_corte, fecha_alta);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -73,7 +74,7 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 
 	@Override
 	public void update(Turno turnos) {
-		String sql = "UPDATE turnos SET nombre=?, apellido=?, mail=?, fecha_turno=?, hora_turno=?, tipo_corte=? WHERE id = ?";
+		String sql = "UPDATE turnos SET nombre=?, apellido=?, mail=?, fecha_turno=?, id_hora=?, tipo_corte=? WHERE id = ?";
 
 		try (Connection con = AdministradorDeConexiones.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(sql);
@@ -82,7 +83,7 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 			statement.setString(2, turnos.getApellido());
 			statement.setString(3, turnos.getMail());
 			statement.setDate(4, new java.sql.Date(DateUtils.asDate(turnos.getFecha_turno()).getTime()));
-			statement.setString(5, turnos.getHora_turno());
+			statement.setInt(5, turnos.getId_hora());
 			statement.setString(6, turnos.getTipo_corte());
 			statement.setLong(7, turnos.getId());
 			statement.executeUpdate();
@@ -112,8 +113,19 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 	@Override
 	public List<Turno> findAll() {
 
-		String sql = "SELECT * FROM turnos";
-
+		String sql = "SELECT"
+				+ "    turnos.id, "
+				+ "    turnos.nombre, "
+				+ "    turnos.apellido, "
+				+ "    turnos.mail, "
+				+ "    turnos.fecha_turno, "
+				+ "    hora_turno.id_hora, "
+				+ "    hora_turno.nombre_hora, "
+				+ "    turnos.tipo_corte, "
+				+ "    turnos.fecha_alta "
+				+ "FROM turnos "
+				+ "JOIN hora_turno ON turnos.id_hora = hora_turno.id_hora;";
+		
 		List<Turno> turnos = new ArrayList<>();
 		try (Connection con = AdministradorDeConexiones.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(sql);
@@ -125,11 +137,13 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 				String apellido = res.getString(3);
 				String email = res.getString(4);
 				LocalDate fecha_turno = DateUtils.asLocalDate(res.getDate(5));
-				String hora_turno = res.getString(6);
-				String tipo_corte = res.getString(7);
-				Date fecha_alta = res.getDate(8);
+				Integer id_hora = res.getInt(6);
+				String nombre_hora = res.getString(7);
+				String tipo_corte = res.getString(8);
+				Date fecha_alta = res.getDate(9);
+				
 
-				turnos.add(new Turno(dbId, nombre, apellido, email, fecha_turno, hora_turno, tipo_corte, fecha_alta));
+				turnos.add(new Turno(dbId, nombre, apellido, email, fecha_turno, id_hora, nombre_hora, tipo_corte, fecha_alta));
 
 			}
 		} catch (Exception e) {
@@ -139,4 +153,27 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 		return turnos;
 	}
 
+	public List<Hora_Turno> findAllHoras() {
+
+		String sql = "SELECT * FROM hora_turno"
+				;
+		
+		List<Hora_Turno> horas = new ArrayList<>();
+		try (Connection con = AdministradorDeConexiones.getConnection()) {
+			PreparedStatement statement = con.prepareStatement(sql);
+
+			ResultSet res = statement.executeQuery();
+			while (res.next()) {
+				Long dbId = res.getLong(1);
+				String nombre_hora = res.getString(2);
+				
+				horas.add(new Hora_Turno(dbId, nombre_hora));
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			throw new IllegalArgumentException("No se pudo crear el orador", e);
+		}
+		return horas;
+	}
 }
