@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class NuevoTurnoController extends HttpServlet {
 
 	private MysqlTurnoRepository repository = new MysqlTurnoRepository();
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -36,7 +36,6 @@ public class NuevoTurnoController extends HttpServlet {
 		Turno nuevo = new Turno(turnoRequest.getNombre(), turnoRequest.getApellido(), turnoRequest.getMail(),
 				turnoRequest.getFecha_turno(), turnoRequest.getId_hora(), turnoRequest.getTipo_corte());
 
-		
 		repository.save(nuevo);
 
 		String jsonParaFront = mapper.writeValueAsString(nuevo);
@@ -48,7 +47,7 @@ public class NuevoTurnoController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-				List<Turno> listaTurno = repository.findAll();
+		List<Turno> listaTurno = repository.findAll();
 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new JavaTimeModule());
@@ -63,7 +62,7 @@ public class NuevoTurnoController extends HttpServlet {
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String id = req.getParameter("id");
-		
+
 		repository.delete(Long.parseLong(id));
 
 		resp.setStatus(HttpServletResponse.SC_OK);

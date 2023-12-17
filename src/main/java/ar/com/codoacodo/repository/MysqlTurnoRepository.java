@@ -124,7 +124,9 @@ public class MysqlTurnoRepository implements ITurnoRepository {
 				+ "    turnos.tipo_corte, "
 				+ "    turnos.fecha_alta "
 				+ "FROM turnos "
-				+ "JOIN hora_turno ON turnos.id_hora = hora_turno.id_hora;";
+				+ "JOIN hora_turno ON turnos.id_hora = hora_turno.id_hora "
+				+ "WHERE turnos.fecha_turno >= CURRENT_DATE() "
+				+ "ORDER BY turnos.fecha_turno ASC;";
 		
 		List<Turno> turnos = new ArrayList<>();
 		try (Connection con = AdministradorDeConexiones.getConnection()) {
